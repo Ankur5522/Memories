@@ -1,0 +1,140 @@
+/* Navbar.css */
+
+.heading {
+  color: rgba(0, 183, 255, 1);
+  text-decoration: none;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userName {
+  font-size: 18px;
+}
+
+.purple {
+  color: #fff;
+  background-color: #512da8;
+}
+
+.logout {
+  margin-left: 10px;
+}
+
+
+/* Styles for App*/
+body {
+  background-color: #f7f8fc,
+}
+
+.heading {
+  color: rgba(0, 183, 255, 1);
+}
+
+.appImg {
+  margin-left: 15px;
+}
+
+/* Styles for Form*/
+
+.paper {
+  padding: 16px;
+}
+
+.form1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fileInput {
+  width: 97%;
+  margin: 10px 0;
+}
+
+.buttonSubmit {
+  margin-bottom: 10px;
+}
+
+/* Styles for Posts*/
+
+.mainContainer {
+  display: flex;
+  align-items: center;
+}
+
+.smMargin {
+  margin: 8px; /* Assuming theme.spacing(1) equals 8px */
+}
+
+.actionDiv {
+  text-align: center;
+}
+
+/* Styles for Post*/
+
+.media {
+  height: 0;
+  padding-top: 56.25%;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+}
+
+.border {
+  border: solid;
+}
+
+.fullHeightCard {
+  height: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 15px;
+  height: 100%;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+}
+
+.overlay2 {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+}
+
+.grid {
+  display: flex;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.title {
+  padding: 0 16px;
+}
+
+.cardActions {
+  padding: 0 16px 8px 16px;
+  display: flex;
+  justify-content: space-between;
+}
