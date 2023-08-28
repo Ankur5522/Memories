@@ -5,9 +5,12 @@ import Post from "./Post/Post";
 
 const Posts = ({setCurrentId}) => {
     const posts = useSelector((state) => state.posts.posts);
+    const status = useSelector((state) => state.posts.status);
     const isloading = useSelector((state) => state.auth.loading);
+
+    if(!posts.length && status === "idle") return 'No Posts';
     return (
-        !posts.length && isloading ? (
+        status === "loadingposts" ? (
             <CircularProgress />
         ) : (
             <Grid className="container" container alignItems="stretch" spacing={3}>

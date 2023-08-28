@@ -55,7 +55,7 @@ const Form = ({currentId, setCurrentId}) => {
                 <Paper>
                     <Typography color={'inherit'}>Loading...</Typography>
                 </Paper>
-            ) : (<Paper className="paper" raised elevation={6} >
+            ) : (<Paper className="paper" raised="true" elevation={6} >
             <form autoComplete="off" noValidate className="form1" onSubmit={handleSubmit}>
             <Typography variant="h6">{currentId ? 'Editing' : 'Creating'} a Memory</Typography>
             <TextField 

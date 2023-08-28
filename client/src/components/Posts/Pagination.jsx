@@ -15,7 +15,7 @@ const Paginate = ({page}) => {
   return (
     <Pagination
       page={Number(page) || 1}
-      count={numberOfPages}
+      count={numberOfPages || 1}
       variant="outlined"
       color="primary"
       sx={{

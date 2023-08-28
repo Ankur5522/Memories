@@ -60,12 +60,14 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(signin.fulfilled, (state, action) => {
-        state.user = action.payload.userData;
-        state.token = action.payload.token;
-        state.isAuthenticated = true;
-        state.error = null;
-        state.loading = false;
-        localStorage.setItem("profile", JSON.stringify(action.payload));
+        if(action.payload) {
+          state.user = action.payload.userData;
+          state.token = action.payload.token;
+          state.isAuthenticated = true;
+          state.error = null;
+          state.loading = false;
+          localStorage.setItem("profile", JSON.stringify(action.payload));
+        }
       })
       .addCase(signin.rejected, (state, action) => {
         state.user = {};

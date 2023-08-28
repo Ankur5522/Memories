@@ -11,6 +11,16 @@ export const getPosts = createAsyncThunk('posts/fetchAll', async (page) => {
     }
 });
 
+export const getPost = createAsyncThunk('posts/fetchPost', async (id) => {
+    try {
+        const response = await api.fetchPost(id);
+        const data = response.data;
+        return data;
+    } catch(error) {
+        console.log(error.message);
+    }
+});
+
 export const getPostsBySearch = createAsyncThunk('posts/fetchBySearch', async (searchQuery) => {
     try {
         const response = await api.fetchPostsBySearch(searchQuery);
@@ -49,6 +59,16 @@ export const deletePost = createAsyncThunk('Posts/delete',async(id) => {
         console.log(error);
     }
 });
+
+export const commentPost = createAsyncThunk('Posts/comment/:id', async({value, id}) => {
+    try {
+        const response = await api.commentPost(value, id);
+        const data = response.data;
+        return data;
+    } catch(error) {
+        console.log(error.message)
+    }
+})
 
 export const likePost = createAsyncThunk('Posts/like',async(id) => {
     try {

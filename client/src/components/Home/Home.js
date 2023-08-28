@@ -14,7 +14,7 @@ import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
 import { getPostsBySearch } from "../../actions/posts";
 import Paginate from "../Posts/Pagination";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -32,6 +32,7 @@ const Home = () => {
 
   const searchPost = () => {
     if (search.trim() || tags) {
+      console.log("search: ", search)
       dispatch(getPostsBySearch({search, tags: tags.join(',')}));
       navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',') || 'none'}`);
     } else {
@@ -96,9 +97,11 @@ const Home = () => {
               </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
+            {(!searchQuery && !tags.length) &&
             <Paper elevation={6}>
               <Paginate page = {page}/>
             </Paper>
+            }
           </Grid>
         </Grid>
       </Container>

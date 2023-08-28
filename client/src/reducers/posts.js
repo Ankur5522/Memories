@@ -3,12 +3,15 @@ import { getPosts } from "../actions/posts";
 import { createPost, updatePost, deletePost } from "../actions/posts";
 import { likePost } from "../actions/posts";
 import { getPostsBySearch } from "../actions/posts";
+import { getPost } from "../actions/posts";
+import { commentPost } from "../actions/posts";
 
 const initialState = {
   posts: [],
+  post: null,
   currentPage: 1,
   numberOfPages: null,
-  status: "idle", // or 'loading', 'succeeded', 'failed'
+  status: "idle",
   error: null,
 };
 
@@ -16,12 +19,11 @@ const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    // Other synchronous reducers can be defined here
   },
   extraReducers: (builder) => {
     builder
       .addCase(getPosts.pending, (state) => {
-        state.status = "loading";
+        state.status = "loadingposts";
       })
       .addCase(getPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
@@ -30,6 +32,17 @@ const postsSlice = createSlice({
         state.numberOfPages = action.payload.numberOfPages;
       })
       .addCase(getPosts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(getPost.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getPost.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.post = action.payload;
+      })
+      .addCase(getPost.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
@@ -78,6 +91,20 @@ const postsSlice = createSlice({
         );
       })
       .addCase(likePost.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(commentPost.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(commentPost.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.posts = state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        );
+        state.post = action.payload;
+      })
+      .addCase(commentPost.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })

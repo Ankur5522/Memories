@@ -5,16 +5,15 @@ const verifyGoogleToken = async (token) => {
   try {
     const url = "https://www.googleapis.com/oauth2/v3/userinfo";
     const headers = {
-      Authorization: `Bearer ${token}`, // Use the 'token' parameter instead of 'data'
+      Authorization: `Bearer ${token}`,
     };
 
     const response = await axios.get(url, { headers });
 
     const payload = response.data;
-    return payload; // The token is valid, and payload contains the user information
+    return payload;
   } catch (error) {
-    console.error('Invalid Google token:', error.message);
-    return null; // The token is invalid or has expired
+    return null;
   }
 };
 

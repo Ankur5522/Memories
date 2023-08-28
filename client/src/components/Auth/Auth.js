@@ -16,31 +16,38 @@ import { auth } from "../../actions/auth";
 import { signin, signup } from "../../actions/auth";
 
 const initialState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-}
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
-  const [formData, setFormData] =useState(initialState)
+  const [formData, setFormData] = useState(initialState);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(isSignup) {
-      dispatch(signup(formData))
+    if (isSignup) {
+      dispatch(signup(formData));
     } else {
-      dispatch(signin(formData))
+      const response = await dispatch(signin(formData));
+      if (response.payload) {
+        navigate("/");
+      } else {
+        setErrorMessage("Incorrect username or password");
+      }
     }
-    navigate('/')
   };
+
   const handleChange = (event) => {
-    setFormData({...formData, [event.target.name]: event.target.value})
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
@@ -52,11 +59,11 @@ const Auth = () => {
   };
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
-        dispatch(auth(tokenResponse.access_token))
-        navigate('/')
+      dispatch(auth(tokenResponse.access_token));
+      navigate("/");
     },
-    flow: 'implicit'
-  })
+    flow: "implicit",
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -76,6 +83,11 @@ const Auth = () => {
         <Typography variant="h5" sx={{ marginTop: 1 }}>
           {isSignup ? "Sign Up" : "Sign In"}
         </Typography>
+        {errorMessage && (
+          <Typography variant="body2" color="error" sx={{ marginBottom: 2 }}>
+            {errorMessage}
+          </Typography>
+        )}
         <form
           onSubmit={handleSubmit}
           style={{ width: "100%", marginTop: "30px" }}
@@ -129,11 +141,7 @@ const Auth = () => {
           >
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
-          <Button
-            onClick={() => login()}
-          >
-            Sign in with Google 🚀{" "}
-          </Button>
+          <Button onClick={() => login()} sx={{width: "100%", marginTop: "0.5rem"}}>Sign in with Google 🚀 </Button>
           {/* <GoogleLogin
               onSuccess={(credentialResponse) => {
                 console.log(credentialResponse);
